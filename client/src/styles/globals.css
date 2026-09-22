@@ -1,0 +1,200 @@
+:root {
+  --color-bg: #0A0710;
+  --color-surface: #16111F;
+  --color-border: #2A2136;
+  --color-text-primary: #F5F3F8;
+  --color-text-secondary: #A99CBC;
+  --color-purple: #7C2FD1;
+
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+  --container-max-width: 400px;
+  --font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- One proportional size scale, fluid against viewport height ----
+     Every element below is sized from these tokens, so the page keeps the
+     same visual rhythm on a short phone and on a tall desktop. */
+  --logo-badge: clamp(76px, 13vh, 104px);
+  --logo-mark: calc(var(--logo-badge) * 0.6);
+
+  --card-height: clamp(52px, 8.4vh, 62px);
+  --icon-circle: calc(var(--card-height) * 0.68);
+  --social-size: calc(var(--card-height) * 0.68);
+
+  --text-brand: clamp(25px, 4.2vh, 32px);
+  --text-tagline: clamp(13px, 2.1vh, 16px);
+  --text-label: clamp(14px, 2.3vh, 17px);
+  --text-footer: clamp(10px, 1.5vh, 12px);
+
+  --gap-sm: clamp(8px, 1.3vh, 12px);
+  --gap-md: clamp(12px, 2.1vh, 20px);
+  --gap-lg: clamp(16px, 2.8vh, 26px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Single-screen layout: the whole page fits the viewport, nothing scrolls. */
+.page {
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--gap-md) 16px;
+  background:
+    radial-gradient(62% 32% at 50% 0%, rgba(124, 47, 209, 0.22), transparent 70%),
+    var(--color-bg);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Header ---- */
+.header-fixed {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.logo-badge {
+  width: var(--logo-badge);
+  height: var(--logo-badge);
+  border-radius: var(--radius-pill);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 1px rgba(124, 47, 209, 0.35), 0 8px 28px rgba(124, 47, 209, 0.28);
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--gap-sm);
+}
+
+.logo-badge img { width: var(--logo-mark); height: var(--logo-mark); }
+
+.brand-name {
+  font-size: var(--text-brand);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* ---- Content ---- */
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.tagline {
+  margin: var(--gap-sm) 0 var(--gap-lg);
+  font-size: var(--text-tagline);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 320px;
+}
+
+.button-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  height: var(--card-height);
+  padding: 0 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.action-button:hover,
+.action-button:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--color-purple);
+  box-shadow: 0 6px 20px rgba(124, 47, 209, 0.3);
+  outline: none;
+}
+
+.action-button:active { transform: translateY(0); }
+
+.icon-circle {
+  flex: 0 0 auto;
+  width: var(--icon-circle);
+  height: var(--icon-circle);
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+}
+
+/* Icons scale with their circle so every glyph reads at the same weight */
+.icon-circle svg {
+  width: calc(var(--icon-circle) * 0.52);
+  height: calc(var(--icon-circle) * 0.52);
+}
+
+.action-label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ---- Back link (social page) ---- */
+.back-link {
+  margin-top: var(--gap-lg);
+  font-size: var(--text-label);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--color-text-primary);
+  border-color: var(--color-purple);
+  outline: none;
+}
+
+.footer-note {
+  margin: var(--gap-md) 0 0;
+  font-size: var(--text-footer);
+  color: var(--color-text-secondary);
+}
+
+/* Safety valve: on very short or landscape screens let the page scroll
+   rather than clipping content off the bottom. */
+@media (max-height: 520px) {
+  .page { height: auto; min-height: 100dvh; overflow: visible; }
+}

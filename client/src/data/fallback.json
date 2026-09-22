@@ -1,0 +1,18 @@
+{
+  "buttons": [
+    { "key": "demo", "type": "button", "label": "See Live Demo", "icon": "bar-chart", "bgColor": "#D8F3E3", "href": "https://ezentixlabs.com/demo" },
+    { "key": "pricing", "type": "button", "label": "View Pricing Plans", "icon": "rupee-tag", "bgColor": "#DCEBFB", "href": "https://ezentixlabs.com/pricing" },
+    { "key": "consultation", "type": "button", "label": "Book a Free Consultation", "icon": "calendar", "bgColor": "#FCE3CC", "href": "https://calendly.com/ezentixlabs/consultation" },
+    { "key": "review", "type": "button", "label": "Leave a Google Review", "icon": "google", "bgColor": "#F3F4F6", "href": "https://g.page/r/ezentixlabs/review" },
+    { "key": "support", "type": "button", "label": "Talk to Support", "icon": "chat", "bgColor": "#EADDFB", "href": "https://wa.me/919999999999" },
+    { "key": "social", "type": "button", "label": "Social Media Profiles", "icon": "share", "bgColor": "#FBD6E4", "href": "/social" }
+  ],
+  "socials": [
+    { "key": "youtube", "type": "social", "label": "YouTube", "icon": "youtube", "href": "https://youtube.com/@ezentixlabs" },
+    { "key": "facebook", "type": "social", "label": "Facebook", "icon": "facebook", "href": "https://facebook.com/ezentixlabs" },
+    { "key": "instagram", "type": "social", "label": "Instagram", "icon": "instagram", "href": "https://instagram.com/ezentixlabs" },
+    { "key": "reddit", "type": "social", "label": "Reddit", "icon": "reddit", "href": "https://reddit.com/r/ezentixlabs" },
+    { "key": "linkedin", "type": "social", "label": "LinkedIn", "icon": "linkedin", "href": "https://linkedin.com/company/ezentixlabs" },
+    { "key": "gbp", "type": "social", "label": "Google Business Profile", "icon": "gbp", "href": "https://g.page/ezentixlabs" }
+  ]
+}
