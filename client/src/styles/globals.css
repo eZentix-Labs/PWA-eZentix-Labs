@@ -198,3 +198,160 @@ html, body {
 @media (max-height: 520px) {
   .page { height: auto; min-height: 100dvh; overflow: visible; }
 }
+
+/* ---- Consultation form ---- */
+/* The form is taller than a viewport, so this page scrolls. */
+.page--scroll {
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+  align-items: flex-start;
+  padding-top: var(--gap-lg);
+  padding-bottom: var(--gap-lg);
+}
+
+.container--form {
+  max-width: 560px;
+  height: auto;
+  justify-content: flex-start;
+}
+
+.form-card {
+  width: 100%;
+  margin-top: var(--gap-lg);
+  padding: clamp(20px, 4vw, 30px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form-title {
+  margin: 0 0 6px;
+  font-size: clamp(21px, 3.4vh, 26px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.form-subtitle {
+  margin: 0;
+  font-size: var(--text-tagline);
+  color: var(--color-text-secondary);
+}
+
+.form-rule {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background: var(--color-border);
+  margin: var(--gap-md) 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field--full { margin-top: var(--gap-md); }
+
+.field-label {
+  font-size: var(--text-tagline);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.field-optional {
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--text-label);
+  color: var(--color-text-primary);
+  background: #100C18;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field textarea { resize: vertical; min-height: 96px; }
+
+.field select {
+  appearance: none;
+  /* chevron, drawn inline so there is no extra request */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A99CBC' stroke-width='2.5' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  padding-right: 38px;
+}
+
+.field select:disabled { opacity: 0.55; }
+.field select option { background: #16111F; }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-purple);
+  box-shadow: 0 0 0 3px rgba(124, 47, 209, 0.25);
+}
+
+.submit-button {
+  margin-top: var(--gap-lg);
+  width: 100%;
+  min-height: 56px;
+  font-family: inherit;
+  font-size: clamp(16px, 2.4vh, 19px);
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--color-purple);
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.submit-button:hover:not(:disabled) { filter: brightness(1.12); transform: translateY(-1px); }
+.submit-button:disabled { opacity: 0.6; cursor: default; }
+
+.form-note {
+  margin: var(--gap-md) 0 0;
+  text-align: center;
+  font-size: var(--text-tagline);
+  color: var(--color-text-secondary);
+}
+
+.form-error {
+  margin: var(--gap-md) 0 0;
+  padding: 10px 14px;
+  font-size: var(--text-tagline);
+  color: #FFC9C9;
+  background: rgba(190, 60, 60, 0.15);
+  border: 1px solid rgba(190, 60, 60, 0.4);
+  border-radius: 12px;
+}
+
+.form-card .back-link { align-self: center; }
+
+.form-card--done { align-items: center; text-align: center; }
+.form-card--done .form-subtitle { margin-bottom: var(--gap-md); }
+
+@media (max-width: 520px) {
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+}

@@ -23,7 +23,7 @@ export const seedLinks = [
     label: "Book a Free Consultation",
     icon: "calendar",
     bgColor: "#FCE3CC",
-    href: "https://calendly.com/ezentixlabs/consultation",
+    href: "/consultation",
     order: 3
   },
   {
