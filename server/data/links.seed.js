@@ -14,7 +14,7 @@ export const seedLinks = [
     label: "View Pricing Plans",
     icon: "rupee-tag",
     bgColor: "#DCEBFB",
-    href: "https://ezentixlabs.com/pricing",
+    href: "/pricing",
     order: 2
   },
   {

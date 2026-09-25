@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Header from "../components/Header.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "/api";
@@ -16,7 +16,7 @@ const EMPTY = {
 
 function prettyDate(key) {
   const d = new Date(`${key}T00:00:00`);
-  return d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
 }
 
 function prettyTime(t) {
@@ -27,7 +27,12 @@ function prettyTime(t) {
 }
 
 export default function Consultation() {
-  const [form, setForm] = useState(EMPTY);
+  const [searchParams] = useSearchParams();
+  const plan = searchParams.get("plan");
+
+  const [form, setForm] = useState(() =>
+    plan ? { ...EMPTY, notes: `Interested in the ${plan} plan.` } : EMPTY
+  );
   const [slots, setSlots] = useState({ dates: [], businessTypes: [] });
   const [status, setStatus] = useState("idle"); // idle | sending | done
   const [error, setError] = useState("");
@@ -89,23 +94,24 @@ export default function Consultation() {
       <div className="container container--form">
         <Header />
         <form className="form-card" onSubmit={onSubmit}>
+          {plan && <span className="plan-chip plan-chip--inline">{plan} plan</span>}
           <h2 className="form-title">Start the conversation</h2>
           <p className="form-subtitle">Fill this in and we will call you back. It takes a minute.</p>
           <hr className="form-rule" />
 
           <div className="form-grid">
             <label className="field">
-              <span className="field-label">Your name</span>
+              <span className="field-label">Your name <span className="req">*</span></span>
               <input value={form.name} onChange={set("name")} required maxLength={80} />
             </label>
 
             <label className="field">
-              <span className="field-label">Business name</span>
+              <span className="field-label">Business name <span className="req">*</span></span>
               <input value={form.businessName} onChange={set("businessName")} required maxLength={80} />
             </label>
 
             <label className="field">
-              <span className="field-label">What kind of business</span>
+              <span className="field-label">What kind of business <span className="req">*</span></span>
               <select value={form.businessType} onChange={set("businessType")} required>
                 <option value="">—</option>
                 {slots.businessTypes.map((t) => (
@@ -115,7 +121,7 @@ export default function Consultation() {
             </label>
 
             <label className="field">
-              <span className="field-label">Phone or WhatsApp number</span>
+              <span className="field-label">Phone or WhatsApp number <span className="req">*</span></span>
               <input
                 type="tel"
                 value={form.phone}
@@ -127,7 +133,7 @@ export default function Consultation() {
             </label>
 
             <label className="field">
-              <span className="field-label">Pick a date</span>
+              <span className="field-label">Pick a date <span className="req">*</span></span>
               <select value={form.date} onChange={set("date")} required>
                 <option value="">—</option>
                 {slots.dates.map((d) => (
@@ -137,7 +143,7 @@ export default function Consultation() {
             </label>
 
             <label className="field">
-              <span className="field-label">Pick a time</span>
+              <span className="field-label">Pick a time <span className="req">*</span></span>
               <select value={form.time} onChange={set("time")} required disabled={!form.date}>
                 <option value="">{form.date ? "—" : "Pick a date first"}</option>
                 {timesForDate.map((t) => (

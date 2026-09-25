@@ -1,7 +1,7 @@
 {
   "buttons": [
     { "key": "demo", "type": "button", "label": "See Live Demo", "icon": "bar-chart", "bgColor": "#D8F3E3", "href": "https://ezentixlabs.com/demo" },
-    { "key": "pricing", "type": "button", "label": "View Pricing Plans", "icon": "rupee-tag", "bgColor": "#DCEBFB", "href": "https://ezentixlabs.com/pricing" },
+    { "key": "pricing", "type": "button", "label": "View Pricing Plans", "icon": "rupee-tag", "bgColor": "#DCEBFB", "href": "/pricing" },
     { "key": "consultation", "type": "button", "label": "Book a Free Consultation", "icon": "calendar", "bgColor": "#FCE3CC", "href": "/consultation" },
     { "key": "review", "type": "button", "label": "Leave a Google Review", "icon": "google", "bgColor": "#F3F4F6", "href": "https://g.page/r/ezentixlabs/review" },
     { "key": "support", "type": "button", "label": "Talk to Support", "icon": "chat", "bgColor": "#EADDFB", "href": "https://wa.me/919999999999" },

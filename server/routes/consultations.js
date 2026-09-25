@@ -3,6 +3,7 @@ import Booking from "../models/Booking.js";
 import { slotConfig, availableDates, isValidSlot } from "../data/slots.js";
 import { appendBooking } from "../lib/googleSheet.js";
 import { sendWhatsApp } from "../lib/whatsapp.js";
+import { notifyN8n, isConfigured as isN8nConfigured } from "../lib/n8n.js";
 
 const router = Router();
 
@@ -35,6 +36,8 @@ router.get("/slots", async (_req, res) => {
       times: slotConfig.times.filter((t) => !takenSet.has(`${date} ${t}`))
     }))
     .filter((d) => d.times.length > 0)
+    // only offer the next few dates
+    .slice(0, slotConfig.maxDates)
   });
 });
 
@@ -75,15 +78,31 @@ router.post("/", async (req, res) => {
     return res.status(503).json({ error: "Could not save your booking. Please try again." });
   }
 
-  // 2. Google Sheet + 3. WhatsApp — run both, report either failure server-side.
-  const [sheet, wa] = await Promise.allSettled([appendBooking(booking), sendWhatsApp(booking)]);
-  if (sheet.status === "rejected") console.error("Sheet sync failed:", sheet.reason?.message);
-  if (wa.status === "rejected") console.error("WhatsApp notify failed:", wa.reason?.message);
+  // 2. Notify — an n8n workflow if one is wired up (recommended: no service
+  //    account JSON or Meta app to manage, just a webhook + Sheet/WhatsApp
+  //    nodes in n8n's UI), otherwise the direct Google Sheets + WhatsApp
+  //    Cloud API calls below. Never both, so the owner never gets paged twice.
+  if (isN8nConfigured()) {
+    const result = await notifyN8n(booking, { id: saved._id, bookedAt: saved.createdAt.toISOString() })
+      .then(() => ({ ok: true }))
+      .catch((err) => {
+        console.error("n8n notify failed:", err.message);
+        return { ok: false };
+      });
+    await Booking.updateOne(
+      { _id: saved._id },
+      { sheetSynced: result.ok, whatsappSent: result.ok }
+    ).catch(() => {});
+  } else {
+    const [sheet, wa] = await Promise.allSettled([appendBooking(booking), sendWhatsApp(booking)]);
+    if (sheet.status === "rejected") console.error("Sheet sync failed:", sheet.reason?.message);
+    if (wa.status === "rejected") console.error("WhatsApp notify failed:", wa.reason?.message);
 
-  await Booking.updateOne(
-    { _id: saved._id },
-    { sheetSynced: sheet.status === "fulfilled", whatsappSent: wa.status === "fulfilled" }
-  ).catch(() => {});
+    await Booking.updateOne(
+      { _id: saved._id },
+      { sheetSynced: sheet.status === "fulfilled", whatsappSent: wa.status === "fulfilled" }
+    ).catch(() => {});
+  }
 
   res.status(201).json({ ok: true });
 });

@@ -8,6 +8,8 @@ export const slotConfig = {
   // How far ahead the calendar runs, and how soon the earliest slot may be.
   daysAhead: 14,
   leadTimeDays: 1,
+  // How many dates the visitor is offered at once (2–4).
+  maxDates: 4,
   // Specific dates to block out, e.g. holidays: "2026-10-02"
   blockedDates: []
 };
